@@ -1,0 +1,173 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "User Management API",
+      "description": "API documentation for user management system"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/login": {
+        "post": {
+          "summary": "User Login",
+          "description": "Authenticate user and return access token",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User login credentials",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Login successful"
+            },
+            "401": {
+              "description": "Invalid credentials"
+            }
+          }
+        }
+      },
+      "/send-email": {
+        "post": {
+          "summary": "Create User and Send Email",
+          "description": "Create a new user and send an email invitation",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User details",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" }
+                },
+                "required": ["email"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Email sent successfully"
+            },
+            "500": {
+              "description": "Failed to send email"
+            }
+          }
+        }
+      },
+      "/blockuser": {
+        "patch": {
+          "summary": "Block or Unblock User",
+          "description": "Block or unblock a user by admin",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User ID and block status",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": { "type": "string" },
+                  "block": { "type": "boolean" }
+                },
+                "required": ["userId", "block"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User status updated"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/disable2fa": {
+        "patch": {
+          "summary": "Disable Two-Factor Authentication",
+          "description": "Disable 2FA for the user",
+          "responses": {
+            "200": {
+              "description": "2FA disabled"
+            }
+          }
+        }
+      },
+      "/update-password": {
+        "patch": {
+          "summary": "Update Password",
+          "description": "Update user's password",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "New password details",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currentPassword": { "type": "string" },
+                  "newPassword": { "type": "string" }
+                },
+                "required": ["currentPassword", "newPassword"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Password updated"
+            },
+            "400": {
+              "description": "Invalid current password"
+            }
+          }
+        }
+      },
+      "/forgot-password": {
+        "post": {
+          "summary": "Forgot Password",
+          "description": "Request a password reset link",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User email",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" }
+                },
+                "required": ["email"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Password reset email sent"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      }
+    }
+  }
+  
